@@ -1,6 +1,8 @@
 server:
   port: 8060
 
+
+
 eureka:
   client:
     serviceUrl:
@@ -19,15 +21,25 @@ spring:
       discovery:
         locator:
           enabled: true
+          lower-case-service-id: true
       routes:
-        - id: AirBnbDemo
+        - id: getAllProperties
           uri: lb://AirBnbDemo
           predicates:
-            - Path=/api/v1/property/**
+            - Path=/properties/**
+            - Method=GET
           filters:
-             - RewritePath=/api/v1/property/(?<path>.*), /$\{path}
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/properties/(?<segment>/*), /api/v1/property/$\{segment}
 
 management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway
+  endpoint:
+    gateway:
+      enabled: true
   tracing:
     sampling:
       probability: 1.0

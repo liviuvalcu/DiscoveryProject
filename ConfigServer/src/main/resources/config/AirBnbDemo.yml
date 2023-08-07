@@ -6,29 +6,13 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8061/eureka/
 
-management:
-  tracing:
-    sampling:
-      probability: 1.0
-
 
 spring:
-  output:
-    ansi:
-      enabled: always
   datasource:
     url: jdbc:mysql://localhost:3306/airbnb
     username: root
     password: liviu1986
-  cloud:
-    config:
-      discovery:
-        service-id:
-      enabled: true
-    gateway:
-      discovery:
-        locator:
-          enable: true
+
   jpa:
     hibernate:
       ddl-auto: none
